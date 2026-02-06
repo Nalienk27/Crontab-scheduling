@@ -1,0 +1,33 @@
+<Crontab syntax details>
+
+* * * * * command-to-execute
+│ │ │ │ │
+│ │ │ │ └── Day of the week (0-7) [0 and 7 = Sunday]
+│ │ │ └──── Month (1-12)
+│ │ └────── Day of the month (1-31)
+│ └──────── Hour (0-23)
+└────────── Minute (0-59)
+
+<Special Strings in Cron>
+@reboot	Run once at startup
+@hourly	0 * * * *
+@daily	0 0 * * *
+@weekly	0 0 * * 0
+@monthly	0 0 1 * *
+@yearly	0 0 1 1 *
+
+<Cron Expression Meaning>
+0 9 * * *	Every day at 9:00 AM
+15 18 * * *	Every day at 6:15 PM
+0 */6 * * *	Every 6 hours
+*/5 * * * *	Every 5 minutes
+0 0 * * 0	Every Sunday at midnight
+
+<If any case two scripts need to run after the first script successfully completed use the below systax>
+45 7 * * * /bin/bash -c 'echo "--- $(date) ---"; python3 /part1.py && python3 /root/part2.py' >> /var/log/<log_file_name>.log 2>&1
+
+< Crontab releated files path for troubleshooting purpose>
+	• User cron jobs are stored in /var/spool/cron/
+	• Crontab log file are stored in /var/log/cron
+	• Root can manage system-wide cron jobs in /etc/crontab
+	• Control access files are stored in /etc/cron.allow and /etc/cron.deny
